@@ -399,7 +399,7 @@ function startQR(){
   Html5Qrcode.getCameras().then(devices => {
 
     qr.start(
-      devices[0].id,
+      devices[devices.length - 1].id
       { fps:10, qrbox:250 },
 
       (decodedText) => {
