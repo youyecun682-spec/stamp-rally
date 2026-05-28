@@ -2,6 +2,8 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>👽スタンプラリーPRO</title>
 
 <style>
@@ -9,123 +11,172 @@
 body{
   font-family:sans-serif;
   text-align:center;
-  padding:30px;
+  padding:20px;
+  margin:0;
   background:linear-gradient(to bottom,#050816,#0b1f4d,#1b3b73);
 }
 
+/* タイトル */
 h1{
   font-size:55px;
   color:white;
-  text-shadow:0 0 10px #00ccff,0 0 30px #00ccff;
+  text-shadow:
+    0 0 10px #00ccff,
+    0 0 30px #00ccff,
+    0 0 50px #0088ff;
 }
 
-#reader{
-  margin:auto;
-}
-
-.level-box{
-  background:rgba(255,255,255,0.12);
-  border:2px solid #00ccff;
-  border-radius:25px;
-  padding:25px;
-  margin:30px 0;
-}
-
-.level-title{
-  font-size:32px;
+/* メッセージ */
+#msg{
   color:white;
   margin-bottom:20px;
 }
 
-.game-row{
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-  gap:15px;
-}
-
-.game{
-  width:120px;
-  background:rgba(255,255,255,0.15);
-  border-radius:20px;
-  padding:10px;
-}
-
-.game-name{
-  color:white;
-  font-size:16px;
-  min-height:40px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.stamp{
-  width:65px;
-  height:65px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+/* QR */
+#reader{
+  width:300px;
   margin:auto;
-  background:white;
-  font-size:35px;
 }
 
-.done{
-  background:#00ccff;
-  color:white;
-  box-shadow:0 0 10px #00ccff;
-  animation: glow 1s infinite alternate;
+/* 入力 */
+input{
+  padding:10px;
+  border:none;
+  border-radius:10px;
+  margin-top:10px;
 }
 
-@keyframes glow{
-  from{transform:scale(1);}
-  to{transform:scale(1.15);}
-}
-
+/* ボタン */
 button{
   margin-top:10px;
-  padding:8px 12px;
+  padding:10px 15px;
   border:none;
   border-radius:10px;
   background:#00ccff;
   color:white;
   cursor:pointer;
+  font-size:15px;
 }
 
-input{
-  padding:10px;
-  border-radius:10px;
-  border:none;
+/* 難易度ボックス */
+.level-box{
+  background:rgba(255,255,255,0.12);
+  border:2px solid #00ccff;
+  border-radius:25px;
+  padding:25px;
+  margin:35px 0;
+  box-shadow:0 0 20px rgba(0,204,255,0.5);
 }
 
+/* 難易度タイトル */
+.level-title{
+  font-size:35px;
+  color:white;
+  margin-bottom:25px;
+  text-shadow:0 0 10px #00ccff;
+}
+
+/* 横並び */
+.game-row{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:20px;
+}
+
+/* ゲーム */
+.game{
+  width:130px;
+  background:rgba(255,255,255,0.15);
+  border-radius:20px;
+  padding:15px;
+  box-shadow:0 0 10px rgba(0,204,255,0.4);
+}
+
+/* ゲーム名 */
+.game-name{
+  color:white;
+  font-size:16px;
+  min-height:45px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  font-weight:bold;
+}
+
+/* スタンプ */
+.stamp{
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  border:3px solid white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:auto;
+  background:white;
+  font-size:40px;
+}
+
+/* 完了 */
+.done{
+  background:#00ccff;
+  color:white;
+  box-shadow:
+    0 0 10px #00ccff,
+    0 0 20px #00ccff,
+    0 0 40px #00ccff;
+  animation:glow 1s infinite alternate;
+}
+
+/* 光る */
+@keyframes glow{
+  from{
+    transform:scale(1);
+  }
+  to{
+    transform:scale(1.15);
+  }
+}
+
+/* COMPLETE演出 */
 #overlay{
   position:fixed;
   top:0;
   left:0;
   width:100%;
   height:100%;
-  background:rgba(0,0,0,0.9);
+  background:rgba(0,0,0,0.92);
   display:none;
   justify-content:center;
   align-items:center;
-  color:#00ccff;
-  font-size:60px;
-  z-index:999;
-  text-shadow:0 0 20px #00ccff;
-  animation: popup 0.5s;
+  flex-direction:column;
+  z-index:9999;
 }
 
-@keyframes popup{
-  from{
-    transform:scale(0.5);
-    opacity:0;
-  }
+/* COMPLETE文字 */
+#overlayText{
+  color:#00ccff;
+  font-size:70px;
+  text-shadow:
+    0 0 20px #00ccff,
+    0 0 40px #0088ff;
+  animation:pop 1s infinite alternate;
+}
 
-  to{
+#overlaySub{
+  color:white;
+  font-size:25px;
+  margin-top:15px;
+}
+
+@keyframes pop{
+  from{
     transform:scale(1);
-    opacity:1;
+  }
+  to{
+    transform:scale(1.2);
   }
 }
 
@@ -136,16 +187,18 @@ input{
 
 <h1>👽スタンプをあつめよう</h1>
 
-<h3 style="color:white;" id="msg">
+<h3 id="msg">
 QRを読み取ってください
 </h3>
 
 <!-- QR -->
-<div id="reader" style="width:300px;"></div>
+<div id="reader"></div>
 
 <br>
 
 <input id="qrInput" type="number" placeholder="QR番号">
+
+<br>
 
 <button onclick="scanQR()">
 QR読み取り
@@ -155,18 +208,24 @@ QR読み取り
 QRカメラ開始
 </button>
 
-<br><br>
-
 <!-- COMPLETE -->
 <div id="overlay">
+
+<div id="overlayText">
 COMPLETE🚀
+</div>
+
+<div id="overlaySub">
+全ゲームクリア！
+</div>
+
 </div>
 
 <!-- 初級 -->
 <div class="level-box">
 
 <div class="level-title">
-🌟 初級
+初級
 </div>
 
 <div class="game-row">
@@ -208,7 +267,7 @@ COMPLETE🚀
 <div class="level-box">
 
 <div class="level-title">
-🚀 中級
+中級
 </div>
 
 <div class="game-row">
@@ -250,7 +309,7 @@ COMPLETE🚀
 <div class="level-box">
 
 <div class="level-title">
-👽 上級
+上級
 </div>
 
 <div class="game-row">
@@ -291,44 +350,9 @@ COMPLETE🚀
 <!-- QRライブラリ -->
 <script src="https://unpkg.com/html5-qrcode"></script>
 
-<!-- Firebase -->
-<script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-import {
-  getFirestore,
-  doc,
-  setDoc
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyAcVacegY04LRlL51R8gWMIctTrLcY48gk",
-  authDomain: "sutannpurari.firebaseapp.com",
-  projectId: "sutannpurari",
-  storageBucket: "sutannpurari.firebasestorage.app",
-  messagingSenderId: "907091370132",
-  appId: "1:907091370132:web:ff644000c8a5509d049481",
-  measurementId: "G-1JEDBW0WD6"
-};
-
-const app = initializeApp(firebaseConfig);
-
-const db = getFirestore(app);
-
-window.db = db;
-window.doc = doc;
-window.setDoc = setDoc;
-
-</script>
-
 <script>
 
 let scanned = new Set();
-
-let beginnerComplete = false;
-let middleComplete = false;
-let advancedComplete = false;
 
 /* スタンプ取得 */
 function getStamp(num){
@@ -350,24 +374,9 @@ function getStamp(num){
     document.getElementById("msg").innerHTML =
       "👽 スタンプGET！ → " + num;
 
-    saveStamp(num);
-
     checkComplete();
 
   }
-
-}
-
-/* Firebase保存 */
-async function saveStamp(num){
-
-  await window.setDoc(
-    window.doc(window.db,"stamps","user1"),
-    {
-      ["s"+num]: true
-    },
-    { merge:true }
-  );
 
 }
 
@@ -408,41 +417,28 @@ function startQR(){
 /* COMPLETE判定 */
 function checkComplete(){
 
-  // 初級
-  if(isDone(1,6) && !beginnerComplete){
-
-    beginnerComplete = true;
-
-    showComplete("🌟 初級 COMPLETE!");
-
+  if(allDone(1,6)){
+    showComplete("初級 COMPLETE!");
   }
 
-  // 中級
-  if(isDone(7,12) && !middleComplete){
-
-    middleComplete = true;
-
-    showComplete("🚀 中級 COMPLETE!");
-
+  if(allDone(7,12)){
+    showComplete("中級 COMPLETE!");
   }
 
-  // 上級
-  if(isDone(13,18) && !advancedComplete){
-
-    advancedComplete = true;
-
-    showComplete("👽 上級 COMPLETE!");
-
+  if(allDone(13,18)){
+    showComplete("上級 COMPLETE!");
   }
 
 }
 
-/* 範囲チェック */
-function isDone(start,end){
+/* 範囲判定 */
+function allDone(start,end){
 
   for(let i=start;i<=end;i++){
 
-    if(!scanned.has(i)){
+    const el = document.getElementById("s"+i);
+
+    if(!el.classList.contains("done")){
       return false;
     }
 
@@ -452,19 +448,16 @@ function isDone(start,end){
 
 }
 
-/* COMPLETE表示 */
+/* 演出 */
 function showComplete(text){
 
-  const overlay =
-    document.getElementById("overlay");
+  document.getElementById("overlay").style.display = "flex";
 
-  overlay.innerHTML = text;
-
-  overlay.style.display = "flex";
+  document.getElementById("overlayText").innerHTML = text;
 
   setTimeout(()=>{
 
-    overlay.style.display = "none";
+    document.getElementById("overlay").style.display = "none";
 
   },3000);
 
