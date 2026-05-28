@@ -16,7 +16,6 @@ body{
   background:linear-gradient(to bottom,#050816,#0b1f4d,#1b3b73);
 }
 
-/* タイトル */
 h1{
   font-size:55px;
   color:white;
@@ -26,19 +25,16 @@ h1{
     0 0 50px #0088ff;
 }
 
-/* メッセージ */
 #msg{
   color:white;
   margin-bottom:20px;
 }
 
-/* QR */
 #reader{
   width:300px;
   margin:auto;
 }
 
-/* 入力 */
 input{
   padding:10px;
   border:none;
@@ -46,7 +42,6 @@ input{
   margin-top:10px;
 }
 
-/* ボタン */
 button{
   margin-top:10px;
   padding:10px 15px;
@@ -58,7 +53,6 @@ button{
   font-size:15px;
 }
 
-/* 難易度ボックス */
 .level-box{
   background:rgba(255,255,255,0.12);
   border:2px solid #00ccff;
@@ -68,7 +62,6 @@ button{
   box-shadow:0 0 20px rgba(0,204,255,0.5);
 }
 
-/* 難易度タイトル */
 .level-title{
   font-size:35px;
   color:white;
@@ -76,7 +69,6 @@ button{
   text-shadow:0 0 10px #00ccff;
 }
 
-/* 横並び */
 .game-row{
   display:flex;
   justify-content:center;
@@ -84,7 +76,6 @@ button{
   gap:20px;
 }
 
-/* ゲーム */
 .game{
   width:130px;
   background:rgba(255,255,255,0.15);
@@ -93,7 +84,6 @@ button{
   box-shadow:0 0 10px rgba(0,204,255,0.4);
 }
 
-/* ゲーム名 */
 .game-name{
   color:white;
   font-size:16px;
@@ -105,7 +95,6 @@ button{
   font-weight:bold;
 }
 
-/* スタンプ */
 .stamp{
   width:70px;
   height:70px;
@@ -119,7 +108,6 @@ button{
   font-size:40px;
 }
 
-/* 完了 */
 .done{
   background:#00ccff;
   color:white;
@@ -130,7 +118,6 @@ button{
   animation:glow 1s infinite alternate;
 }
 
-/* 光る */
 @keyframes glow{
   from{
     transform:scale(1);
@@ -140,7 +127,6 @@ button{
   }
 }
 
-/* COMPLETE演出 */
 #overlay{
   position:fixed;
   top:0;
@@ -155,7 +141,6 @@ button{
   z-index:9999;
 }
 
-/* COMPLETE文字 */
 #overlayText{
   color:#00ccff;
   font-size:70px;
@@ -196,12 +181,12 @@ QRを読み取ってください
 
 <br>
 
-<input id="qrInput" type="number" placeholder="QR番号">
+<input id="qrInput" type="number" placeholder="番号入力">
 
 <br>
 
 <button onclick="scanQR()">
-QR読み取り
+番号でスタンプ
 </button>
 
 <button onclick="startQR()">
@@ -380,7 +365,7 @@ function getStamp(num){
 
 }
 
-/* QR手入力 */
+/* 手入力 */
 function scanQR(){
 
   let num = document.getElementById("qrInput").value;
@@ -396,19 +381,30 @@ function startQR(){
 
   const qr = new Html5Qrcode("reader");
 
-  Html5Qrcode.getCameras().then(devices => {
+  qr.start(
 
-    qr.start(
-      devices[devices.length - 1].id
-      { fps:10, qrbox:250 },
+    { facingMode: "environment" },
 
-      (decodedText) => {
+    {
+      fps:10,
+      qrbox:250
+    },
 
-        getStamp(decodedText);
+    (decodedText) => {
 
-      }
+      getStamp(decodedText);
 
-    );
+    },
+
+    (errorMessage) => {
+
+    }
+
+  ).catch(err => {
+
+    alert("カメラを起動できませんでした");
+
+    console.log(err);
 
   });
 
@@ -448,7 +444,7 @@ function allDone(start,end){
 
 }
 
-/* 演出 */
+/* COMPLETE演出 */
 function showComplete(text){
 
   document.getElementById("overlay").style.display = "flex";
